@@ -1,0 +1,33 @@
+
+  <view class="page">
+      <view class="page__hd">
+          <view class="page__title">HooBridge Framework</view>
+          <view class="page__desc">HooBridge 基于WeUI样式库，打造App体验的一款桥接、UI和体验于一体的复合型业务框架。</view>
+      </view>
+      <view class="page__bd page__bd_spacing">
+          <view class="kind-list">
+              <block  wx:for="{{list}}" wx:key="id">
+                  <view class="kind-list__item">
+                      <view id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle" data-wpykindtoggle-a="{{item.id}}">
+                          <view class="weui-flex__item">{{item.name}}</view>
+                          <image class="kind-list__img" src="../images/icon_nav_{{item.id}}.png"/>
+                      </view>
+                      <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
+                          <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
+                              <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="id">
+                                  <navigator url="{{item.id}}/{{page.id}}" class="weui-cell weui-cell_access">
+                                      <view class="weui-cell__bd">{{page.label}}</view>
+                                      <view class="weui-cell__ft weui-cell__ft_in-access"/>
+                                  </navigator>
+                              </block>
+                          </view>
+                      </view>
+                  </view>
+              </block>
+          </view>
+      </view>
+      <view class="page__ft" bindtap="bindContact">
+          <text class="page__desc" style="font-size:70%;color:#D7D7D7;">
+          <text style="text-decoration:underline">@小韩工作室</text> 版权所有 侵权必究 </text>
+      </view>
+  </view>

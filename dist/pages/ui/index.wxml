@@ -1,0 +1,4 @@
+<!--pages/ui/index.wxml-->
+<view class='container'>
+  <view style='padding:20rpx;' wx:for="{{menus}}" wx:key="{{index}}" data-index='{{index}}'>{{item.label}}</view>
+</view>

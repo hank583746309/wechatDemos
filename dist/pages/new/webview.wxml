@@ -1,0 +1,17 @@
+<!--pages/new/webview.wxml  <web-view wx:if="{{canWebViewUse}}" src="https://gitee.com/laohuangshu"><web-view>
+-->
+<block wx:for="{{devs}}" wx:key="{{index}}">
+  <view class="hoo-item_block" style="{{index == devs.length - 1 ? 'margin-bottom:20rpx;' : ''}}">
+    <view class="userinfo">
+      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+      <block wx:else>
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{item.url || userInfo.avatarUrl}}" background-size="cover"></image>
+        <text class="userinfo-nickname">{{item.userName || userInfo.nickName}}</text>
+        <text class="userinfo-introduction">{{item.detail || '这里是简介、分工说明'}}</text>
+      </block>
+    </view>
+  </view>
+</block>
+<view class="page__ft">
+    <text class="page__desc" style="font-size:70%;color:#D7D7D7;"> Free is not free </text>
+</view>

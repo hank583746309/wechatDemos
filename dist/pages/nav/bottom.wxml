@@ -1,0 +1,26 @@
+
+  <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="bindSwiperChange" current="{{current}}">
+    <block  wx:for="{{imgUrls}}" wx:key="*this">
+      <swiper-item>
+        <!-- 延迟加载  -->
+        <image src="{{item}}" class="slide-image" width="355" height="150"/>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="hoo-nav_bottom">
+      <block  wx:key="key" wx:for="{{items}}" wx:for-index="index" wx:for-item="item">
+        <view class="hoo-nav_tab {{item.checked ? 'hoo-nav_tab__select' : ''}}" bindtap="selectChange" data-wpyselectchange-a="{{index}}">
+          <view class="icon" style="background-image: url(../../images/{{item.name}}_{{item.checked ? 'select': 'normal'}}.png)"/>
+          <label>{{item.value}}</label>
+        </view>
+      </block>
+      <!--
+        <radio-group class="radio-group" style="width: 100%;display:-webkit-flex; display:flex;" bindchange="radioChange">
+           <repeat wx:for="{{items}}">
+             <label class="radio" class="hoo-nav_tab">
+               <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+             </label>
+           </repeat>
+         </radio-group>
+         -->
+  </view>

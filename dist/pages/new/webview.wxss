@@ -1,0 +1,27 @@
+.hoo-item_block{
+  background-color: white;
+  margin-top: 20rpx;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.userinfo-introduction{
+  color: #d2d2d2;
+  font-size: 80%;
+  padding: 16rpx;
+}

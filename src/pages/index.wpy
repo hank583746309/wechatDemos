@@ -1,0 +1,101 @@
+<style lang="less">
+   .weui-flex{-webkit-box-align:center;-webkit-align-items:center;align-items:center}.weui-cells{margin-top:0;opacity:0;-webkit-transform:translateY(-50%);transform:translateY(-50%);-webkit-transition:.3s;transition:.3s}.weui-cells:after,.weui-cells:before{display:none}.weui-cells_show{opacity:1;-webkit-transform:translateY(0);transform:translateY(0)}.weui-cell:before{right:15px}.kind-list__item{margin:10px 0;background-color:#fff;border-radius:2px;overflow:hidden}.kind-list__item:first-child{margin-top:0}.kind-list__img{width:30px;height:30px}.kind-list__item-hd{padding:20px;-webkit-transition:opacity .3s;transition:opacity .3s}.kind-list__item-hd_show{opacity:.4}.kind-list__item-bd{height:0;overflow:hidden}.kind-list__item-bd_show{height:auto}
+</style>
+<template>
+  <view class="page">
+      <view class="page__hd">
+          <view class="page__title">HooBridge Framework</view>
+          <view class="page__desc">HooBridge 基于WeUI样式库，打造App体验的一款桥接、UI和体验于一体的复合型业务框架。</view>
+      </view>
+      <view class="page__bd page__bd_spacing">
+          <view class="kind-list">
+              <repeat wx:for="{{list}}" wx:key="id">
+                  <view class="kind-list__item">
+                      <view id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" @tap="kindToggle({{item.id}})">
+                          <view class="weui-flex__item">{{item.name}}</view>
+                          <image class="kind-list__img" src="../images/icon_nav_{{item.id}}.png"></image>
+                      </view>
+                      <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
+                          <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
+                              <repeat wx:for="{{item.pages}}" wx:for-item="page" wx:key="id">
+                                  <navigator url="{{item.id}}/{{page.id}}" class="weui-cell weui-cell_access">
+                                      <view class="weui-cell__bd">{{page.label}}</view>
+                                      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                                  </navigator>
+                              </repeat>
+                          </view>
+                      </view>
+                  </view>
+              </repeat>
+          </view>
+      </view>
+      <view class="page__ft" bindtap='bindContact'>
+          <text class="page__desc" style="font-size:70%;color:#D7D7D7;">
+          <text style='text-decoration:underline'>@小韩工作室</text> 版权所有 侵权必究 </text>
+      </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+/*
+// 可参照： DEMO合集    hhttp://javascript.ctolib.com/WechatSmallApps.html
+//         小商城后台   http://javascript.ctolib.com/m-mall-admin.html
+//         在线文档阅读 http://javascript.ctolib.com/SmallRuralDog-cloud-doc.html
+//         **XpmJS    http://javascript.ctolib.com/xpmjs.html
+//         爬虫&后台   http://javascript.ctolib.com/app_market.html
+//         *** canvas 练习 && 图片瀑布流可以伪装为“天上人间”
+//         *******小程序案例上传模式 http://javascript.ctolib.com/wechat-dribbbled.html
+*/
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '小程序样例大全'
+    }
+
+    data = {
+      list: [
+        {
+          id: 'form',
+          name: 'UI界面',
+          open: false,
+          pages: [{ label: '基础组件', id: '' }, { label: '表单', id: '' }, { label: '操作反馈', id: '' }, { label: '扩展组件(Search)', id: '' }]
+        },
+        {
+          id: 'nav',
+          name: '导航',
+          open: false,
+          pages: [{ label: '顶部导航', id: 'index' }, { label: '底部导航', id: 'bottom' }, { label: '带Badge导航', id: 'badge' }]
+        },
+        {
+          id: 'feedback',
+          name: '功能',
+          open: false,
+          pages: [{ label: '图表图像', id: '' }]
+        },
+        {
+          id: 'widget',
+          name: 'API封装',
+          open: false,
+          pages: [{ label: 'wx.request封装', id: '' }, { label: 'pramise封装', id: '' }]
+        },
+        {
+          id: 'search',
+          name: '小程序的坑',
+          open: false,
+          pages: [{ label: 'websocket', id: '' }]
+        }
+      ]
+    };
+
+    methods = {
+      bindContact(e) {
+        wepy.navigateTo({url: 'new/webview'})
+      },
+      kindToggle(id) {
+        this.list.forEach(v => { v.open = (v.id === id) ? !v.open : false })
+      }
+    };
+  }
+</script>

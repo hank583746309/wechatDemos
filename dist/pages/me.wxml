@@ -1,0 +1,19 @@
+
+    <view class="container">
+      <view class="userinfo">
+        <block  wx:if="{{!hasUserInfo && canIUse}}">
+          <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+        </block>
+        <block  wx:else>
+          <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"/>
+          <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        </block>
+      </view>
+
+      <view>关于作者</view>
+
+      <view>UI声明</view>
+
+      <view>源码声明</view>
+
+    </view>

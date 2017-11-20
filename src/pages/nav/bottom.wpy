@@ -1,0 +1,124 @@
+<style type="less">
+  .hoo-nav_bottom{
+    position:fixed;
+    bottom:0px;
+    width:100%;
+    margin:0 auto;
+    background-color:#f8f8f8;
+    text-align:center;
+    display:-webkit-flex;
+    display:flex;
+    border-top: 1px solid #dbdbdb;
+    z-index:9;
+  }
+  .hoo-nav_tab{
+    -webkit-flex:1;
+    flex:1;
+    display:block;
+    float:left;
+    text-align:center;
+    font-size:14px;
+    color:#b0b0b0;
+    text-decoration:none;
+    padding: 8rpx 0;
+    color: #707070;
+  }
+  .hoo-nav_tab label{
+    display:block;
+    font-size:22rpx;
+  }
+  .hoo-nav_tab__select{
+    color: #2aa515;
+  }
+  .hoo-nav_tab .icon{
+    width:46rpx;
+    height:46rpx;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    margin:0 auto;
+    transition:opacity .1s;
+    -webkit-transition:opacity .1s;
+  }
+  .hoo-nav_tab image{
+    width:44rpx;
+    height:44rpx;
+  }
+
+</style>
+<template>
+  <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="bindSwiperChange" current="{{current}}">
+    <repeat wx:for="{{imgUrls}}" wx:key="*this">
+      <swiper-item>
+        <!-- 延迟加载  -->
+        <image src="{{item}}" class="slide-image" width="355" height="150"/>
+      </swiper-item>
+    </repeat>
+  </swiper>
+  <view class="hoo-nav_bottom">
+      <repeat for="{{items}}" wx:key="{{name}}">
+        <view class="hoo-nav_tab {{item.checked ? 'hoo-nav_tab__select' : ''}}" @tap="selectChange({{index}})">
+          <view class="icon" style="background-image: url(../../images/{{item.name}}_{{item.checked ? 'select': 'normal'}}.png)"></view>
+          <label>{{item.value}}</label>
+        </view>
+      </repeat>
+      <!--
+        <radio-group class="radio-group" style="width: 100%;display:-webkit-flex; display:flex;" bindchange="radioChange">
+           <repeat wx:for="{{items}}">
+             <label class="radio" class="hoo-nav_tab">
+               <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+             </label>
+           </repeat>
+         </radio-group>
+         -->
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  var Hoo = require('../../libs/Hoo.all.js')
+
+  export default class bottom extends wepy.page {
+    config = {
+      // navigationBarTitleText: '微信'
+    };
+    data = {
+      items: [
+        {name: 'wechat', value: '微信', checked: 'true'},
+        {name: 'contacts', value: '通讯录'},
+        {name: 'discover', value: '发现'},
+        {name: 'user', value: '我'}
+      ],
+      imgUrls: [
+        'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+        'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511005838502&di=4a7e9d0b0d794dfc8015b8ea278a905e&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F19%2F67%2F48%2F58PIC3258PICVg6_1024.jpg'
+      ],
+      indicatorDots: false,
+      autoplay: false,
+      interval: 5000,
+      duration: 1000,
+      current: 0
+    };
+    methods = {
+      selectChange: function (index) {
+        this.data.items.map((row, i) => {
+          row.checked = i === index
+          if (i === index) { wx.setNavigationBarTitle({ title: row.value }) }
+        })
+        this.current = index
+      },
+      bindSwiperChange: function (e) {
+        if (this.current === e.detail.current) { return }
+        const current = this.current = e.detail.current
+        this.methods.selectChange.call(this, current)
+      }
+    };
+    onLoad() {
+      console.log(Hoo)
+      this.methods.selectChange.call(this, 0)
+    }
+  }
+</script>
