@@ -1,0 +1,44 @@
+
+  
+  <view class="hoo-nav_top">
+    <block  wx:key="$topbar$key" wx:for="{{$topbar$items}}" wx:for-index="$topbar$index" wx:for-item="$topbar$item">
+      <view class="hoo-nav_tab {{$topbar$item.checked ? 'hoo-nav_tab__select' : ''}}" bindtap="$topbar$switchTab" data-wpyswitchtab-a="{{$topbar$index}}">
+        <label>{{$topbar$item.title}}</label>
+        <view class="cursor" style="display:{{ $topbar$item.checked ? 'block': 'none'}}"/>
+      </view>
+    </block>
+  </view>
+  <!--
+
+<view class="hoo-nav_top">
+  <repeat for="{{items}}" wx:key="{{name}}">
+    <view class="hoo-nav_tab {{item.checked ? 'hoo-nav_tab__select' : ''}}" bindtap="selectChange({{index}})">
+      <label>{{item.value}}</label>
+      <view class="cursor" style="display:{{item.checked ? 'block': 'none'}}"></view>
+    </view>
+  </repeat>
+</view>
+-->
+
+  <swiper class="swiper-box" style="height:calc(100% - 68rpx);margin-top: 68rpx;" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="bindSwiperChange" current="{{current}}">
+    <block  wx:for="{{fragments}}" wx:key="name">
+      <swiper-item>
+        <block wx:if="{{index==0}}">
+          
+  <view>
+    ToBeNotifiedFragment
+    <view>{{$tobenotified$msg}}</view>
+  </view>
+
+        </block>
+        <block wx:else>
+          
+    <view>ToBeMaintainedFragment</view>
+    <block  wx:for="{{$tobemaintained$imgUrls}}" wx:key="{{index}}">
+      <image src="{{item}}" class="slide-image"/>
+    </block>
+
+        </block>
+      </swiper-item>
+    </block>
+  </swiper>

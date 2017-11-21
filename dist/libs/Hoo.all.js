@@ -2063,11 +2063,13 @@ Hoo.apply(Hoo.bridge.device, {
 
 Hoo.hybrid = Hoo.bridge; //TODO 兼容系统原有代码
 
-var wx = {
-  setStorage: Hoo.bridge.storage.putItem
-};
+(function(){
+  let wx = {
+    setStorage: Hoo.bridge.storage.putItem
+  };
 
-Hoo.copyTo(wx, window.Hoo);
+  Hoo.copyTo(wx, window.Hoo);
+})();
 
 // Hoo.setStorage();
 

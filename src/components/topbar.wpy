@@ -1,0 +1,123 @@
+<style type="less">
+  .hoo-nav_top{
+    position:fixed;
+    top:0px;
+    width:100%;
+    margin:0 auto;
+    background-color:#ffffff;
+    text-align:center;
+    display:-webkit-flex;
+    display:flex;
+    z-index:9;
+  }
+  .hoo-nav_tab{
+    -webkit-flex:1;
+    flex:1;
+    display:block;
+    float:left;
+    text-align:center;
+    font-size:14px;
+    color:#b0b0b0;
+    text-decoration:none;
+    color: #707070;
+  }
+  .hoo-nav_tab label{
+    display:block;
+    font-size:inherit;
+    padding:8rpx 0;
+  }
+  .hoo-nav_tab__select{
+
+  }
+  .cursor{
+    margin:0 auto;
+    width: 28%;
+    height: 8rpx;
+    background: #2aa515;
+  }
+</style>
+<template>
+  <view class="hoo-nav_top">
+    <repeat for="{{items}}" wx:key="id">
+      <view class="hoo-nav_tab {{item.checked ? 'hoo-nav_tab__select' : ''}}" @tap="switchTab({{index}})">
+        <label>{{item.title}}</label>
+        <view class="cursor" style="display:{{ item.checked ? 'block': 'none'}}"></view>
+      </view>
+    </repeat>
+  </view>
+  <!--
+
+<view class="hoo-nav_top">
+  <repeat for="{{items}}" wx:key="{{name}}">
+    <view class="hoo-nav_tab {{item.checked ? 'hoo-nav_tab__select' : ''}}" @tap="selectChange({{index}})">
+      <label>{{item.value}}</label>
+      <view class="cursor" style="display:{{item.checked ? 'block': 'none'}}"></view>
+    </view>
+  </repeat>
+</view>
+-->
+</template>
+
+<script>
+  import wepy from 'wepy'
+  var Hoo = require('../libs/Hoo.all.js')
+
+  export default class Topbar extends wepy.component {
+    config = {
+    };
+    data = {
+      items: [],
+      allowChangeTitle: false,
+      badgeType: 'dot', // dot or number
+      current: -1
+    };
+    methods = {
+      updateTabItems: function (items) {
+        this.items = items || []
+        this.items.map(item => {
+          if (typeof item.id === 'undefined') {
+            item.id = 'tab' + Hoo.id()
+          }
+        })
+      },
+      switchTab: function (index) {
+        if (this.current !== -1 && this.current === index) {
+          return
+        }
+        this.items.map((row, i) => { // data.
+          row.checked = i === index
+          if (i === index && this.allowChangeTitle) { Hoo.bridge.doc.setTitle(row.value) }
+        })
+        this.$emit('onTabChange', this.current = index)
+      },
+      /**
+       * 初始配置入口
+       * @param cfg
+       */
+      config: function (cfg) {
+        cfg = cfg || {}
+        this.allowChangeTitle = cfg.allowChangeTitle || false
+        this.methods.updateTabItems.call(this, cfg.items || [])
+        this.methods.switchTab.call(this, cfg.current || 0)
+      },
+      /**
+       * 设置badge的数量（为0不显示,大于0，根据badgeType定）
+       * @param tag
+       * @param count
+       */
+      setCount: function (tag, count) {
+        this.items.forEach(item => {
+          if (item.id === tag || item.name === tag) {
+            item.badgeCount = count
+            return true
+          }
+        })
+      }
+    };
+    events = {
+      onTabChange: function (index) { // 接收父类事件
+        this.methods.switchTab.call(this, index)
+      }
+    }
+  }
+</script>

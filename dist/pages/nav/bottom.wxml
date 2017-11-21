@@ -1,16 +1,21 @@
 
-  <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="bindSwiperChange" current="{{current}}">
+  <swiper class="swiper-box" style="height:calc(100% - 106rpx);" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="bindSwiperChange" current="{{current}}">
     <block  wx:for="{{imgUrls}}" wx:key="*this">
       <swiper-item>
         <!-- 延迟加载  -->
-        <image src="{{item}}" class="slide-image" width="355" height="150"/>
+        <image src="{{item}}" class="slide-image" width="355" height="950"/>
+        <block wx:if="{{index==0}}">
+          <image src="{{item}}" class="slide-image" width="355" height="950"/>
+          <image src="{{item}}" class="slide-image" width="355" height="950"/>
+          <image src="{{item}}" class="slide-image" width="355" height="950"/>
+        </block>
       </swiper-item>
     </block>
   </swiper>
   <view class="hoo-nav_bottom">
       <block  wx:key="key" wx:for="{{items}}" wx:for-index="index" wx:for-item="item">
         <view class="hoo-nav_tab {{item.checked ? 'hoo-nav_tab__select' : ''}}" bindtap="selectChange" data-wpyselectchange-a="{{index}}">
-          <view class="icon" style="background-image: url(../../images/{{item.name}}_{{item.checked ? 'select': 'normal'}}.png)"/>
+          <view class="icon" style="background-image: url('{{item.checked ? item.selectedIconPath : item.iconPath}}')"/>
           <label>{{item.value}}</label>
         </view>
       </block>

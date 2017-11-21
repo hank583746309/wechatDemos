@@ -66,7 +66,7 @@
           id: 'nav',
           name: '导航',
           open: false,
-          pages: [{ label: '顶部导航', id: 'index' }, { label: '底部导航', id: 'bottom' }, { label: '带Badge导航', id: 'badge' }]
+          pages: [{ label: '顶部导航', id: 'top' }, { label: '底部导航', id: 'bottom' }, { label: '带Badge导航', id: 'badge' }]
         },
         {
           id: 'feedback',

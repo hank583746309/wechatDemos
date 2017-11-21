@@ -1,0 +1,63 @@
+<style type="less">
+  .swiper-box{
+    display: block;
+    height:100%;
+    width: 100%;
+    overflow: hidden;
+  }
+  swiper-item{
+    overflow:auto;
+  }
+</style>
+<template>
+  <swiper class="swiper-box" style="height:calc(100% - 68rpx);margin-top: 68rpx;" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="bindSwiperChange" current="{{current}}">
+    <repeat wx:for="{{imgUrls}}" wx:key="*this">
+      <swiper-item>
+        <!-- 延迟加载 -->
+        <repeat wx:if="{{index==0}}">
+          <image src="{{item}}" class="slide-image" width="355" height="950"/>
+          <image src="{{item}}" class="slide-image" width="355" height="950"/>
+          <image src="{{item}}" class="slide-image" width="355" height="950"/>
+        </repeat>
+        <repeat wx:else>
+          <image src="{{item}}" class="slide-image" width="355" height="950"/>
+        </repeat>
+
+      </swiper-item>
+    </repeat>
+  </swiper>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class SwiperManager extends wepy. { // TODO 考虑继承自 FragmentManager
+    config = {
+
+    };
+    data = {
+      imgUrls: [
+        'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
+        'http://oa5504rxk.bkt.clouddn.com/week23_wepy/9.png',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511005838502&di=4a7e9d0b0d794dfc8015b8ea278a905e&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F19%2F67%2F48%2F58PIC3258PICVg6_1024.jpg'
+      ],
+      indicatorDots: false,
+      autoplay: false,
+      interval: 5000,
+      duration: 500,
+      current: -1
+    };
+    methods = {
+      bindSwiperChange: function (e) {
+        console.log(e.detail.current)
+        if (this.current === e.detail.current) { return }
+        const current = this.current = e.detail.current
+        this.$broadcast('onTabChange', current)
+      },
+      switchTo: function (index) {
+        this.current = index
+        // 判断当前页面是否初始化,如果没有则执行初始化数据操作
+      }
+    };怕个
+  }
+</script>

@@ -1,0 +1,4 @@
+@import "./../../components/top_fragments/ToBeMaintainedFragment.wxss";
+@import "./../../components/top_fragments/ToBeNotifiedFragment.wxss";
+@import "./../../components/topbar.wxss";
+page{display:flex;flex-direction:column;height:100%;align-items:unset}.swiper-box{display:block;height:100%;width:100%;overflow:hidden}swiper-item{overflow:auto}.cursor{width:32%}

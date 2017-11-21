@@ -1,0 +1,96 @@
+<style type="less">
+  page{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items:unset;
+  }
+  .swiper-box{
+    display: block;
+    height:100%;
+    width: 100%;
+    overflow: hidden;
+  }
+  swiper-item{
+    overflow:auto;
+  }
+  .cursor{
+    width: 32%;
+  }
+
+</style>
+<template>
+  <topbar></topbar>
+  <swiper class="swiper-box" style="height:calc(100% - 68rpx);margin-top: 68rpx;" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="bindSwiperChange" current="{{current}}">
+    <repeat wx:for="{{fragments}}" wx:key="name">
+      <swiper-item>
+        <repeat wx:if="{{index==0}}">
+          <tobenotified />
+        </repeat>
+        <repeat wx:else>
+          <tobemaintained />
+        </repeat>
+      </swiper-item>
+    </repeat>
+  </swiper>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Topbar from '../../components/topbar'
+  import ToBeNotifiedFragment from '../../components/top_fragments/ToBeNotifiedFragment'
+  import ToBeMaintainedFragment from '../../components/top_fragments/ToBeMaintainedFragment'
+
+  export default class top extends wepy.page {
+    config = {
+    };
+    components = {
+      topbar: Topbar,
+      tobenotified: ToBeNotifiedFragment,
+      tobemaintained: ToBeMaintainedFragment
+    }
+    data = {
+      fragments: [{
+        name: 'tobenotified',
+        init: false
+      }, {
+        name: 'tobemaintained',
+        init: false
+      }],
+      indicatorDots: false,
+      autoplay: false,
+      interval: 8000,
+      duration: 400,
+      current: -1
+    };
+    methods = {
+      bindSwiperChange: function (e) {
+        if (this.current === e.detail.current) { return }
+        const current = this.current = e.detail.current
+        this.$broadcast('onTabChange', current)
+      }
+    };
+    events = {
+      onTabChange: function (index) {
+        let item = this.fragments[index]
+        if (!item.init) {
+          this.$invoke(item.name, 'init')
+          this.fragments[index]['init'] = true
+        }
+        if (this.current !== -1) {
+          this.$invoke(this.fragments[this.current].name, 'hide')
+        }
+        this.current = index
+        this.$invoke(item.name, 'show')
+      }
+    }
+    onLoad() {
+      this.$invoke('topbar', 'config', {
+        items: [
+          {id: 'tobenotified', title: '待通知'},
+          {id: 'tobemaintained', title: '待保养'}
+        ]
+      })
+    }
+  }
+</script>

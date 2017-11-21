@@ -1,0 +1,41 @@
+<style type="less">
+
+</style>
+<template>
+  <view>
+    ToBeNotifiedFragment
+    <view>{{msg}}</view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class ToBeNotifiedFragment extends wepy.page {
+    config = {
+
+    };
+    data = {
+      msg: ''
+    };
+    methods = {
+      init: function () {
+        console.log('onInit')
+        var that = this
+        this.msg = '模拟加载中'
+        setTimeout(function () {
+          that.msg = '已加载'
+          that.$apply()
+        }, 3000)
+      },
+      show: function () {
+        console.log('onShow')
+      },
+      hide: function () {
+        console.log('onHide')
+      }
+    };
+    events = {
+    }
+  }
+</script>
