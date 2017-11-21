@@ -33,6 +33,14 @@
       },
       hide: function () {
         console.log('onHide')
+      },
+      pullDownRefresh: function () {
+        wx.hideNavigationBarLoading()
+        wx.showNavigationBarLoading()
+        setTimeout(function () {
+          wx.hideNavigationBarLoading()
+          wx.stopPullDownRefresh()
+        }, 2000)
       }
     };
     events = {

@@ -21,10 +21,23 @@
     text-decoration:none;
     color: #707070;
   }
+  .hoo-nav_badge{
+    position: absolute;
+    width: 20rpx;
+    height: 20rpx;
+    border-radius: 50%;
+    background-color: #E64340;
+    right: -24rpx;
+    top: 0;
+  }
   .hoo-nav_tab label{
     display:block;
     font-size:inherit;
     padding:8rpx 0;
+  }
+  .hoo-nav_tab label>view{
+    position: relative;
+    display: inline-block;
   }
   .hoo-nav_tab__select{
 
@@ -40,8 +53,15 @@
   <view class="hoo-nav_top">
     <repeat for="{{items}}" wx:key="id">
       <view class="hoo-nav_tab {{item.checked ? 'hoo-nav_tab__select' : ''}}" @tap="switchTab({{index}})">
-        <label>{{item.title}}</label>
+        <label>
+          <view>
+            {{item.title}}
+            <view class="hoo-nav_badge"></view>
+          </view>
+
+        </label>
         <view class="cursor" style="display:{{ item.checked ? 'block': 'none'}}"></view>
+
       </view>
     </repeat>
   </view>

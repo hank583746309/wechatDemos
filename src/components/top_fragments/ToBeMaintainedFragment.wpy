@@ -1,11 +1,16 @@
 <style type="less">
   .slide-image{}
+  scroll-view{
+    height:100% ;
+  }
 </style>
 <template>
-    <view>ToBeMaintainedFragment</view>
-    <repeat wx:for="{{imgUrls}}" wx:key="{{index}}">
-      <image src="{{item}}" class="slide-image"/>
-    </repeat>
+    <scroll-view scroll-y="true" @scrolltolower="handlerScrolltolower">
+      <view>ToBeMaintainedFragment</view>
+      <repeat wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <image src="{{item}}" class="slide-image"/>
+      </repeat>
+    </scroll-view>
 </template>
 
 <script>
@@ -32,6 +37,19 @@
       },
       hide: function () {
         console.log('onHide')
+      },
+      pullDownRefresh: function () {
+        var t = wx
+        t.hideNavigationBarLoading()
+        t.showNavigationBarLoading()
+        setTimeout(function () {
+          t.hideNavigationBarLoading()
+          t.stopPullDownRefresh()
+        }, 2000)
+      },
+      handlerScrolltolower: function () {
+        console.log(arguments)
+        console.log(this)
       }
     };
     events = {

@@ -21,7 +21,7 @@
 </style>
 <template>
   <topbar></topbar>
-  <swiper class="swiper-box" style="height:calc(100% - 68rpx);margin-top: 68rpx;" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="bindSwiperChange" current="{{current}}">
+  <swiper class="swiper-box" style="height:calc(100% - 68rpx);padding-top: 68rpx;" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="bindSwiperChange" current="{{current}}">
     <repeat wx:for="{{fragments}}" wx:key="name">
       <swiper-item>
         <repeat wx:if="{{index==0}}">
@@ -40,9 +40,12 @@
   import Topbar from '../../components/topbar'
   import ToBeNotifiedFragment from '../../components/top_fragments/ToBeNotifiedFragment'
   import ToBeMaintainedFragment from '../../components/top_fragments/ToBeMaintainedFragment'
+
   // TODO 再考虑是否将数据控制独立抽离 保留基本的视图和组件引入
+
   export default class top extends wepy.page {
     config = {
+      enablePullDownRefresh: true
     };
     components = {
       topbar: Topbar,
@@ -91,6 +94,9 @@
           {id: 'tobemaintained', title: '待保养'}
         ]
       })
+    }
+    onPullDownRefresh() {
+      this.$invoke(this.fragments[this.current].name, 'pullDownRefresh')
     }
   }
 </script>
