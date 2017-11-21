@@ -56,7 +56,9 @@
         <label>
           <view>
             {{item.title}}
-            <view class="hoo-nav_badge"></view>
+            <repeat wx:if="{{badgeType==='dot' && item.badgeCount > 0}}">
+              <view class="hoo-nav_badge"></view>
+            </repeat>
           </view>
 
         </label>

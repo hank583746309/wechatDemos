@@ -106,8 +106,8 @@
       <file leaf-file-name="top.wpy" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/nav/top.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+            <state relative-caret-position="460">
+              <caret line="91" column="16" lean-forward="true" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="16" />
               <folding>
                 <element signature="n#style#0;n#swiper#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="e#864#887#0" expanded="true" />
@@ -129,8 +129,8 @@
       <file leaf-file-name="topbar.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/topbar.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="57" column="26" lean-forward="true" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+            <state relative-caret-position="152">
+              <caret line="59" column="49" lean-forward="true" selection-start-line="59" selection-start-column="49" selection-end-line="59" selection-end-column="49" />
               <folding>
                 <element signature="n#style#0;n#view#0;n#view#0;n#repeat#0;n#view#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -201,8 +201,8 @@
         <option value="$PROJECT_DIR$/src/pages/nav/bottom.wpy" />
         <option value="$PROJECT_DIR$/src/components/top_fragments/ToBeNotifiedFragment.wpy" />
         <option value="$PROJECT_DIR$/src/components/top_fragments/ToBeMaintainedFragment.wpy" />
-        <option value="$PROJECT_DIR$/src/pages/nav/top.wpy" />
         <option value="$PROJECT_DIR$/src/components/topbar.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/nav/top.wpy" />
       </list>
     </option>
   </component>
@@ -333,12 +333,12 @@
       <option name="presentableId" value="Default" />
       <updated>1510553874002</updated>
       <workItem from="1510553876130" duration="23019000" />
-      <workItem from="1510985984414" duration="59785000" />
+      <workItem from="1510985984414" duration="60196000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82804000" />
+    <option name="totallyTimeSpent" value="83215000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1362" y="-4" width="1928" height="1208" extended-state="6" />
@@ -769,8 +769,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/nav/top.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+        <state relative-caret-position="460">
+          <caret line="91" column="16" lean-forward="true" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="16" />
           <folding>
             <element signature="n#style#0;n#swiper#0;n#template#0;n#!!top" expanded="true" />
             <element signature="e#864#887#0" expanded="true" />
@@ -780,8 +780,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/topbar.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="57" column="26" lean-forward="true" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+        <state relative-caret-position="152">
+          <caret line="59" column="49" lean-forward="true" selection-start-line="59" selection-start-column="49" selection-end-line="59" selection-end-column="49" />
           <folding>
             <element signature="n#style#0;n#view#0;n#view#0;n#repeat#0;n#view#0;n#template#0;n#!!top" expanded="true" />
           </folding>

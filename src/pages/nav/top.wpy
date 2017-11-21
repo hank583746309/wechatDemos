@@ -91,7 +91,7 @@
       this.$invoke('topbar', 'config', {
         items: [
           {id: 'tobenotified', title: '待通知'},
-          {id: 'tobemaintained', title: '待保养'}
+          {id: 'tobemaintained', title: '待保养', badgeCount: 2 }
         ]
       })
     }

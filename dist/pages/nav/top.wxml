@@ -6,7 +6,9 @@
         <label>
           <view>
             {{$topbar$item.title}}
-            <view class="hoo-nav_badge"/>
+            <block wx:if="{{$topbar$badgeType==='dot' && $topbar$item.badgeCount > 0}}">
+              <view class="hoo-nav_badge"/>
+            </block>
           </view>
 
         </label>
