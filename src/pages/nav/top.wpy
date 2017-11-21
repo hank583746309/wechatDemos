@@ -40,7 +40,7 @@
   import Topbar from '../../components/topbar'
   import ToBeNotifiedFragment from '../../components/top_fragments/ToBeNotifiedFragment'
   import ToBeMaintainedFragment from '../../components/top_fragments/ToBeMaintainedFragment'
-
+  // TODO 再考虑是否将数据控制独立抽离 保留基本的视图和组件引入
   export default class top extends wepy.page {
     config = {
     };

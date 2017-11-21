@@ -97,7 +97,7 @@
 <script>
   import wepy from 'wepy'
   var Hoo = require('../../libs/Hoo.all.js')
-
+  // TODO 独立抽离 navbar
   export default class bottom extends wepy.page {
     config = {
       // navigationBarTitleText: '微信'
