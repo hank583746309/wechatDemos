@@ -1,0 +1,100 @@
+<style type="less">
+
+</style>
+<template name="img-loader">
+  <repeat wx:for="{{ imgLoadList }}" wx:key="*this">
+    <image src="{{ item }}" data-src="{{ item }}" @load="_imgOnLoad" @error="_imgOnLoadError" style="width:0;height:0;opacity:0" />
+  </repeat>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Imgloader extends wepy.page {
+    config = {
+
+    };
+    data = {
+      imgLoadList: []
+    };
+    methods = {
+      config: function (context, callback) {
+        if (typeof context === 'function') {
+          callback = context
+        } else if (typeof context.callback === 'function') {
+          callback = context.callback
+        }
+        this._cfg = {} // 预防与wepy冲突
+        // this._cfg.context = context
+        this._cfg.callback = callback
+        this._cfg.imgInfo = {}
+        this._cfg.callbacks = {}
+      },
+      load: function (srcs, callback) {
+        if (!srcs) {
+          return
+        }
+        if (typeof srcs === 'string') {
+          srcs = [{url: srcs}]
+        }
+        if (srcs instanceof Array) {
+          let that = this
+          srcs.map(src => {
+            if (typeof callback === 'function') {
+              that.methods._load.call(that, src.url, callback)
+            } else {
+              that.methods._load.call(that, src.url)
+            }
+          })
+        }
+      },
+      _load: function (src, callback) {
+        let list = this.imgLoadList || []
+        let imgInfo = this._cfg.imgInfo[src]
+        if (typeof callback === 'function') {
+          this._cfg.callbacks[src] = callback
+        }
+        // 已经加载成功过的，直接回调
+        if (imgInfo) {
+          this.methods._runCallback.call(this, null, {
+            src: src,
+            width: imgInfo.width,
+            height: imgInfo.height
+          })
+          // 新的未在下载队列中的
+        } else if (list.indexOf(src) === -1) {
+          list.push(src)
+          this.imgLoadList = list
+          this.$apply()
+        }
+      },
+      _imgOnLoad: function () {
+        let ev = arguments[0]
+        let src = ev.currentTarget.dataset.src
+        let width = ev.detail.width
+        let height = ev.detail.height
+
+        // 记录已下载图片的尺寸信息
+        this._cfg.imgInfo[src] = { width, height }
+        this.methods._removeFromLoadList.call(this, src)
+        this.methods._runCallback.call(this, null, { src, width, height })
+      },
+      _imgOnLoadError: function () {
+        let ev = arguments[0]
+        let src = ev.currentTarget.dataset.src
+        this.methods._removeFromLoadList.call(this, src)
+        this.methods._runCallback.call(this, 'Loading failed', { src })
+      },
+      _removeFromLoadList(src) {
+        let list = this.imgLoadList
+        list.splice(list.indexOf(src), 1)
+        this.imgLoadList = list
+      },
+      _runCallback(err, data) {
+        let callback = this._cfg.callbacks[data.src] || this._cfg.callback
+        callback(err, data)
+        delete this._cfg.callbacks[data.src]
+      }
+    };
+  }
+</script>

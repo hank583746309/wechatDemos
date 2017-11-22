@@ -1,0 +1,2 @@
+@import "./../../components/top_fragments/ToBeMaintainedFragment.wxss";
+page{height:100%}

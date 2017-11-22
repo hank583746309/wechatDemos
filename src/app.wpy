@@ -47,6 +47,8 @@ export default class extends wepy.app {
       'pages/ui/index',
       'pages/nav/bottom',
       'pages/nav/top',
+      'pages/nav/badge',
+      'pages/chartimage/imgloader',
       'pages/api/index',
       'pages/funs/index',
       'pages/bugs/index',

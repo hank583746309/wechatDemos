@@ -1,0 +1,18 @@
+
+    
+    <scroll-view scroll-y="true" bindscrolltolower="$tobemaintained$handlerScrolltolower">
+      <view class="img_list">
+        <block  wx:for="{{ $tobemaintained$imgList }}" wx:key="{{index}}">
+          <block wx:if="{{ item.loaded }}">
+            <view class="img_wrap">
+              <image src="{{ item.url }}" class="fade_in"/>
+            </view>
+          </block>
+        </block>
+      </view>
+    </scroll-view>
+    
+  <block  wx:for="{{ $tobemaintained$imgloader$imgLoadList }}" wx:key="*this">
+    <image src="{{ item }}" data-src="{{ item }}" bindload="$tobemaintained$imgloader$_imgOnLoad" binderror="$tobemaintained$imgloader$_imgOnLoadError" style="width:0;height:0;opacity:0"/>
+  </block>
+

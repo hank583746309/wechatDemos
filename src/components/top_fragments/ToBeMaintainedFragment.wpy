@@ -3,34 +3,96 @@
   scroll-view{
     height:100% ;
   }
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  .img_list {
+    text-align: center;
+  }
+
+  .img_wrap {
+    display: inline-block;
+    width: 185rpx;
+    height: 185rpx;
+  }
+
+  image {
+    width: 100%;
+    height: 100%;
+  }
+
+  .fade_in {
+    animation: fadeIn 1s both;
+  }
 </style>
 <template>
     <scroll-view scroll-y="true" @scrolltolower="handlerScrolltolower">
-      <view>ToBeMaintainedFragment</view>
-      <repeat wx:for="{{imgUrls}}" wx:key="{{index}}">
-        <image src="{{item}}" class="slide-image"/>
-      </repeat>
+      <view class="img_list">
+        <repeat wx:for="{{ imgList }}" wx:key="{{index}}">
+          <repeat wx:if="{{ item.loaded }}">
+            <view class="img_wrap">
+              <image src="{{ item.url }}" class="fade_in" />
+            </view>
+          </repeat>
+        </repeat>
+      </view>
     </scroll-view>
+    <imgloader></imgloader>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import ImgLoader from '../imgloader'
+
+  // 生成一些测试数据
+  function genImgListData() {
+    let images = [
+      'http://img10.360buyimg.com/img/s600x600_jfs/t3586/215/2086933702/144606/c5885c8b/583e2f08N13aa7762.png',
+      'http://img10.360buyimg.com/img/s600x600_jfs/t3643/111/394078676/159202/a59f6b72/5809b3ccN41e5e01f.jpg',
+      'http://img10.360buyimg.com/img/s600x600_jfs/t3388/167/1949827805/115796/6ad813/583660fbNe5c34eae.jpg',
+      'http://img10.360buyimg.com/img/s600x600_jfs/t3163/281/5203602423/192427/db09be58/5865cb7eN808cc6f4.png',
+      'http://img10.360buyimg.com/img/s600x600_jfs/t3634/225/410542226/185677/c17f0ecf/5809b073N364fe77e.jpg',
+      'http://img10.360buyimg.com/img/s600x600_jfs/t3808/206/329427377/119593/a8cf7470/580df323Nb641ab96.jpg',
+      'http://img10.360buyimg.com/img/s600x600_jfs/t3805/133/325945617/116002/e90e0bdf/580df2b5Ncb04c5ac.jpg',
+      'http://img10.360buyimg.com/img/s600x600_jfs/t3046/316/3037048447/184004/706c779e/57eb584fN4f8b6502.jpg',
+      'http://img10.360buyimg.com/img/s600x600_jfs/t3580/212/1841964843/369414/e78739fb/58351586Ne20ac82a.jpg',
+      'http://img10.360buyimg.com/img/s600x600_jfs/t3274/70/4925773051/133266/fae6e84/585c9890Na19001c8.png',
+      'http://img10.360buyimg.com/img/s600x600_jfs/t3157/27/5204515328/123020/5f061d81/5865cbcaNfdf0557f.png',
+      'http://img10.360buyimg.com/img/s600x600_jfs/t3265/341/5152556931/143928/bdf279a4/5865cb96Nff26fc5d.png'
+    ]
+    images = images.concat(images.slice(0, 4))
+    return images.map(item => {
+      return {
+        url: item,
+        loaded: false
+      }
+    })
+  }
 
   export default class ToBeMaintainedFragment extends wepy.page {
     config = {
 
     };
     data = {
-      imgUrls: []
+      imgList: genImgListData()
     };
+    components = {
+      imgloader: ImgLoader
+    }
     methods = {
       init: function () {
-        console.log('onInit')
-        this.imgUrls = [
-          'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-          'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-        ]
+        var that = this
+        this.$invoke('imgloader', 'config', this, function (err, data) {
+          that.imgList.map(item => {
+            if (item.url === data.src) {
+              item.loaded = true
+            }
+          })
+          that.$apply()
+        })
+        that.$invoke('imgloader', 'load', this.imgList)
       },
       show: function () {
         console.log('onShow')
@@ -48,8 +110,6 @@
         }, 2000)
       },
       handlerScrolltolower: function () {
-        console.log(arguments)
-        console.log(this)
       }
     };
     events = {

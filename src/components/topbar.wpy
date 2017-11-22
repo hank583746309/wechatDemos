@@ -23,11 +23,11 @@
   }
   .hoo-nav_badge{
     position: absolute;
-    width: 20rpx;
-    height: 20rpx;
+    width: 16rpx;
+    height: 16rpx;
     border-radius: 50%;
     background-color: #E64340;
-    right: -24rpx;
+    right: -20rpx;
     top: 0;
   }
   .hoo-nav_tab label{

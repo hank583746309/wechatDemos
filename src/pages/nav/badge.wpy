@@ -14,8 +14,11 @@
   swiper-item{
     overflow:auto;
   }
+  .hoo-nav_tab__select{
+    color: #2aa515;
+  }
   .cursor{
-    width: 32%;
+    width: 42%;
   }
 
 </style>
@@ -41,11 +44,8 @@
   import ToBeNotifiedFragment from '../../components/top_fragments/ToBeNotifiedFragment'
   import ToBeMaintainedFragment from '../../components/top_fragments/ToBeMaintainedFragment'
 
-  // TODO 再考虑是否将数据控制独立抽离 保留基本的视图和组件引入
-
-  export default class top extends wepy.page {
+  export default class Badge extends wepy.page {
     config = {
-      enablePullDownRefresh: true
     };
     components = {
       topbar: Topbar,
@@ -90,10 +90,15 @@
     onLoad() {
       this.$invoke('topbar', 'config', {
         items: [
-          {id: 'tobenotified', title: '待通知'}, {id: 'tobemaintained', title: '待保养'}
+          {id: 'tobenotified', title: '无红点'},
+          { id: 'tobemaintained', title: '动态红点提示', badgeCount: 0 }
         ],
         current: 1
       })
+      var that = this
+      setTimeout(function () {
+        that.$invoke('topbar', 'setCount', 'tobemaintained', 2)
+      }, 2000)
     }
     onPullDownRefresh() {
       this.$invoke(this.fragments[this.current].name, 'pullDownRefresh')

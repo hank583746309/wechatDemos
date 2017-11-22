@@ -18,7 +18,7 @@
                       <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
                           <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
                               <repeat wx:for="{{item.pages}}" wx:for-item="page" wx:key="id">
-                                  <navigator url="{{item.id}}/{{page.id}}" class="weui-cell weui-cell_access">
+                                  <navigator url="{{item.module}}/{{page.id}}" class="weui-cell weui-cell_access">
                                       <view class="weui-cell__bd">{{page.label}}</view>
                                       <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                                   </navigator>
@@ -66,13 +66,15 @@
           id: 'nav',
           name: '导航',
           open: false,
+          module: 'nav',
           pages: [{ label: '顶部导航', id: 'top' }, { label: '底部导航', id: 'bottom' }, { label: '带Badge导航', id: 'badge' }]
         },
         {
           id: 'feedback',
           name: '功能',
           open: false,
-          pages: [{ label: '图表图像', id: '' }]
+          module: 'chartimage',
+          pages: [{ label: '图表图像', id: '' }, { label: '图片加载', id: 'imgloader' }]
         },
         {
           id: 'widget',
