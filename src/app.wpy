@@ -144,4 +144,9 @@ export default class extends wepy.app {
     })
   }
 }
+App({
+  globalData: {
+    userInfo: null
+  }
+})
 </script>

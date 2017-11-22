@@ -18,7 +18,6 @@ Page({
     canIUse    : wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad(options) {
-    console.log(app);
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -49,5 +48,8 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  bindViewTap: function (e) {
+    console.log(e)
   }
 })
