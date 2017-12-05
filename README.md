@@ -13,6 +13,9 @@
 * 主界面
 * 仿微信界面（不同于小程序原生app.json里配置实现）实现的navbar方式，其中navbar请自行参照topbar方式可组件化，其中注意的是图片src需要为base64或网络图片否则真机不显示。
 * topbar 可动态添加界面
+* 新增emptyview组件，可用于list列表界面，独立page,支持icon和提示文字、按钮文字自定义，支持自定义事件监听处理
+* 新增loadmore组件，可用于list列表界面，支持文字、样式自定义
+* 新增actionsheet组件，依托于官方action-sheet，支持title自定义、item组件传递对象和其他类型混合、支持item自定义样式、支持自定义事件监听处理
 * 陆续更新中...
 
 #### 快速上手
