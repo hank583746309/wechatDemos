@@ -12,7 +12,7 @@
 #### 目前进度
 * 主界面
 
-![Alt text](https://raw.githubusercontent.com/hank583746309/wechatDemos/master/statics/image/1512468578776.png)
+![Alt text](https://raw.githubusercontent.com/hank583746309/wechatDemos/master/statics/image/1512468389750.png)
 
 * 仿微信界面（不同于小程序原生app.json里配置实现）实现的navbar方式，其中navbar请自行参照topbar方式可组件化，其中注意的是图片src需要为base64或网络图片否则真机不显示。
 
