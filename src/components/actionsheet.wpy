@@ -60,6 +60,7 @@
 
     };
     data = {
+      id: '',
       title: '',
       titleCls: '',
       contentCls: '',
@@ -74,6 +75,7 @@
         }
         var actionSheetItems = cfg.items || []
         if (actionSheetItems.length === 0) { console.error('action-sheet中至少包含1项') }
+        this.id = typeof cfg.id !== 'undefined' ? cfg.id : null
         this.title = typeof cfg.title !== 'undefined' ? cfg.title : null
         this.actionSheetItems = actionSheetItems.map(item => {
           if (typeof item !== 'object') {
@@ -96,7 +98,7 @@
       },
       listenerItemClick: function (index) {
         this.actionSheetHidden = true
-        this.$emit('onItemClickListener', this.actionSheetItems[index], index)
+        this.$emit('onItemClickListener', this.actionSheetItems[index], index, this.id) // 加id标识为了兼顾 tabs 多页面时wepe事件传递机制
       }
     };
   }
