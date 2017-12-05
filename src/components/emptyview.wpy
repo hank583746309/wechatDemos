@@ -1,0 +1,97 @@
+<style type="less">
+  .hoo-empty_container{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+  }
+  .hoo-empty_body{
+    transform:translate(0,60%);
+    text-align:center;
+    color:#1f1f1f;
+    font-size: 16px;
+  }
+  .hoo-empty_body image{
+    width: 200rpx;
+    height:200rpx;
+  }
+  .hoo-empty_body text{
+    display: block;
+    margin: 20rpx 0;
+  }
+  .hoo-empty_body button{
+    font-size: 14px;
+    min-width: 220rpx;
+    display:inline-block;
+    zoom:1;
+    background: #ddd
+  }
+  .hoo-empty_body .btn_hover{
+    background: #BCBAB6;
+  }
+</style>
+<template>
+  <view class="hoo-empty_container">
+    <repeat wx:if="{{inited}}">
+      <view class="hoo-empty_body">
+        <image src="{{emptyIcon}}"></image>
+        <text>{{emptyText}}</text>
+        <repeat wx:if="{{showButton}}">
+          <button class="{{btnCls}}" hover-class	='{{btnHoverCls}}' @tap="onBtnClick">{{buttonText}}</button>
+        </repeat>
+      </view>
+    </repeat>
+    <repeat wx:else>
+      <view class="hoo-empty_body">
+        <image src="{{emptyIcon}}"></image>
+        <text>{{emptyText}}</text>
+      </view>
+    </repeat>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  /**
+   * 主要用于ListView空数据状态界面显示
+   */
+  export default class EmptyView extends wepy.page {
+    config = {
+
+    };
+    data = {
+      id: null,
+      inited: false,
+      emptyIcon: 'http://www.easyicon.net/api/resizeApi.php?id=1176490&size=128',
+      emptyText: '空空如也～',
+      showButton: true,
+      btnCls: '',
+      btnHoverCls: 'btn_hover',
+      buttonText: '点击刷新'
+    };
+    methods = {
+      /**
+       * 用于动态修改参数配置
+       * @param cfg 支持更改 data 中所有参数
+       */
+      config: function (cfg) {
+        if (typeof cfg === 'undefined') {
+          cfg = {}
+        }
+        for (var key in cfg) {
+          if (typeof this[key] === 'undefined') { continue }
+          this[key] = cfg[key]
+        }
+        this.showButton = !(cfg.showButton === false)
+        this.inited = false // 默认初始状态为
+        this.$apply()
+      },
+      inited: function () {
+        this.inited = true // 告知已经完成数据初始化动作,之后可以显示数据空问题
+      },
+      onBtnClick: function () {
+        this.$emit('onEmptyButtonClick', this.id) // 通过自定义ID 来区分同一个Page中 多一个emptyview点击事件，方便通知对应的fragment分发处理
+      }
+    };
+  }
+</script>

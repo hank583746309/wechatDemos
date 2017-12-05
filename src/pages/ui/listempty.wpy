@@ -1,0 +1,49 @@
+<style type="less">
+  page{
+    height:100%;
+    width:100%;
+  }
+  .hoo-empty_body {
+    transform: translate(0, 80%);
+  }
+</style>
+<template>
+  <repeat wx:if="{{list.length > 0}}">
+    <text>数据列表(2秒后数据清空)</text>
+  </repeat>
+  <repeat wx:else>
+    <emptyview></emptyview>
+  </repeat>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import EmptyView from '../../components/emptyview'
+
+  export default class listempty extends wepy.page {
+    config = {
+
+    };
+    components = {
+      emptyview: EmptyView
+    }
+    data = {
+      list: []
+    };
+    events = {
+      onEmptyButtonClick: function(id) {
+        this.list = [{}, {}]
+      }
+    };
+    onLoad() {
+      var that = this
+      this.$invoke('emptyview', 'config', {
+        id: 'one',
+        emptyText: '列表暂无数据'
+      })
+      setTimeout(function () {
+        that.$invoke('emptyview', 'inited')
+      }, 1000)
+    }
+  }
+</script>

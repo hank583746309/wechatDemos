@@ -1,0 +1,57 @@
+<style type="less">
+  .green{
+    color: green;
+  }
+  .red{
+    color: red;
+  }
+  .orange{
+    color: orange;
+  }
+  .yellow{
+    color: yellow;
+  }
+  .blue{
+    color: blue;
+  }
+  .purple{
+    color: purple;
+  }
+</style>
+<template>
+  <button @tap="showActionSheet">显示action-sheet</button>
+  <actionsheet></actionsheet>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import ActionSheet from '../../components/actionsheet'
+
+  export default class actionsheet extends wepy.page {
+    config = {
+
+    };
+    data = {
+
+    };
+    components = {
+      actionsheet: ActionSheet
+    };
+    methods = {
+      showActionSheet: function () {
+        this.$invoke('actionsheet', 'show')
+      }
+    };
+    events = {
+      onItemClickListener: function () {
+        console.log(arguments)
+      }
+    }
+    onLoad() {
+      this.$invoke('actionsheet', 'config', {
+        title: '我是标题部分',
+        items: [{content: '实例一', cls: 'red'}, {content: '实例一', cls: 'green'}, {content: '实例一', cls: 'orange'}, {content: '实例一', cls: 'yellow'}, {content: '实例一', cls: 'blue'}, {content: '实例一', cls: 'purple'}]
+      })
+    }
+  }
+</script>

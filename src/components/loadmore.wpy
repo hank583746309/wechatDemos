@@ -1,0 +1,77 @@
+<style type="less">
+  .hoo-loadmore_container{
+    margin: 0 auto;
+    text-align: center;
+    min-height:72rpx;
+  }
+  .hoo-loadmore_container text{
+    font-size: 14px;
+    color: #1f1f1f;
+    line-height: 72rpx;
+  }
+  .hoo-loadmore_container icon{
+    margin-right: 8rpx;
+  }
+</style>
+<template>
+  <view class="hoo-loadmore_container" hidden="{{hidden}}">
+    <repeat wx:if="{{hasMore}}">
+       <repeat wx:if="{{loading}}">
+         <icon type="waiting" size="16" color='#ccc'/>
+       </repeat>
+       <text>{{loadingText}}</text>
+    </repeat>
+    <repeat wx:else>
+      <view><text>{{noMoreText}}</text></view>
+    </repeat>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Loadmore extends wepy.page {
+    config = {
+    };
+    data = {
+      noMoreText: '—— 别拉了,我是有底线的 ——',
+      loadingText: '加载更多',
+      loading: false,
+      hasMore: true,
+      hidden: true
+    };
+    methods = {
+      show: function () {
+        this.hidden = false
+      },
+      config: function (cfg) {
+        if (typeof cfg === 'undefined') {
+          cfg = {}
+        }
+        console.log(cfg)
+      },
+      hasMore: function () {
+        return this.hasMore
+      },
+      /**
+       * 设置没有更多数据
+       */
+      setNoMore: function () {
+        this.hasMore = false
+      },
+      /**
+       * 执行加载更多视图
+       */
+      loadMore: function () {
+        if (!this.hasMore) { return }
+        this.loading = true
+        this.hidden = false
+        this.loadingText = '加载中,请稍后...'
+      },
+      finish: function () {
+        this.loading = false
+        this.loadingText = '加载更多'
+      }
+    };
+  }
+</script>

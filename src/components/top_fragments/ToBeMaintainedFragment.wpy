@@ -84,14 +84,15 @@
     methods = {
       init: function () {
         var that = this
-        this.$invoke('imgloader', 'config', this, function (err, data) {
+        var callback = function(err, data) {
           that.imgList.map(item => {
             if (item.url === data.src) {
               item.loaded = true
             }
           })
           that.$apply()
-        })
+        }
+        this.$invoke('imgloader', 'config', this, callback)
         that.$invoke('imgloader', 'load', this.imgList)
       },
       show: function () {

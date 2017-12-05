@@ -52,7 +52,10 @@ export default class extends wepy.app {
       'pages/api/index',
       'pages/funs/index',
       'pages/bugs/index',
-      'pages/new/webview'
+      'pages/new/webview',
+      'pages/ui/listempty',
+      'pages/ui/listloadmore',
+      'pages/ui/actionsheet'
     ],
     window: {
       backgroundTextStyle: 'black',

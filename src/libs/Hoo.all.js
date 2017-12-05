@@ -1863,6 +1863,7 @@ Hoo.apply(Hoo.bridge.net, {
           var data = res.data; //响应原数据
           //TODO 根据数据格式进行数据分发,如果业务逻辑正常 & 如果业务逻辑失败
           //if (dfCfg.showToast) { wx.showToast({ title: '请求成功', icon: 'success', duration: 1500 }); }
+          if (dfCfg.loading){ wx.hideLoading(); }
 
           if (data.code == 0 || data.code == '0' || data.code == '200'){ // 200为了兼容nodejs api
             dfCfg.success.call(dfCfg.scope, data.data, data);
@@ -1883,11 +1884,11 @@ Hoo.apply(Hoo.bridge.net, {
 
       },
       fail  : function(res){
+        if (dfCfg.loading){ wx.hideLoading(); }
         if (dfCfg.showToast) { Hoo.bridge.widget.tip.error(res.msg || '请求异常'); }
         dfCfg.fail.call(dfCfg.scope, '500', res.msg);
       },
       complete : function(){
-        if (dfCfg.loading){ wx.hideLoading(); }
         dfCfg.complete.apply(dfCfg.scope,arguments);
       }
     })

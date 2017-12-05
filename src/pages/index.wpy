@@ -60,7 +60,8 @@
           id: 'form',
           name: 'UI界面',
           open: false,
-          pages: [{ label: '基础组件', id: '' }, { label: '表单', id: '' }, { label: '操作反馈', id: '' }, { label: '扩展组件(Search)', id: '' }]
+          module: 'ui',
+          pages: [{ label: '基础组件', id: '' }, { label: '表单', id: '' }, { label: '操作反馈actionsheet', id: 'actionsheet' }, { label: '扩展组件(Search)', id: '' }, { label: 'List空视图', id: 'listempty' }, {label: 'List加载更多', id: 'listloadmore'}]
         },
         {
           id: 'nav',

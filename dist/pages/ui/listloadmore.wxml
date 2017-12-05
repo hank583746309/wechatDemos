@@ -1,0 +1,19 @@
+
+  <scroll-view scroll-y="{{scrollY}}" bindscrolltolower="loadMoreMessageRecords">
+    <block  wx:for="{{list}}" wx:key="index">
+      <view style="height: 150rpx;background-color: #1AAD19">{{index}}</view>
+    </block>
+    
+  <view class="hoo-loadmore_container" hidden="{{$loadmore$hidden}}">
+    <block  wx:if="{{$loadmore$hasMore}}">
+       <block wx:if="{{$loadmore$loading}}">
+         <icon type="waiting" size="16" color="#ccc"/>
+       </block>
+       <text>{{$loadmore$loadingText}}</text>
+    </block>
+    <block  wx:else>
+      <view><text>{{$loadmore$noMoreText}}</text></view>
+    </block>
+  </view>
+
+  </scroll-view>

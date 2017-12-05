@@ -1,0 +1,57 @@
+<style type="less">
+  page{
+    height: 100%;
+  }
+  scroll-view{
+    height: 100%;
+  }
+</style>
+<template>
+  <scroll-view scroll-y="{{scrollY}}" bindscrolltolower="loadMoreMessageRecords">
+    <repeat wx:for="{{list}}" wx:key="index">
+      <view style="height: 150rpx;background-color: #1AAD19">{{index}}</view>
+    </repeat>
+    <loadmore></loadmore>
+  </scroll-view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Loadmore from '../../components/loadmore'
+
+  export default class listloadmore extends wepy.page {
+    config = {
+
+    };
+    components = {
+      'loadmore': Loadmore
+    };
+    data = {
+      scrollY: true,
+      timeout: null,
+      list: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+    };
+    methods = {
+      loadMoreMessageRecords: function () {
+        if (this.list.length > 20) { return }
+        if (this.timeout != null) {
+          clearTimeout(this.timeout)
+          this.timeout = null
+        }
+        this.$invoke('loadmore', 'loadMore')
+        var that = this
+        this.timeout = setTimeout(function() {
+          that.list = that.list.concat([{}, {}, {}, {}])
+          that.$apply()
+          that.$invoke('loadmore', 'finish')
+          if (that.list.length > 20) {
+            that.$invoke('loadmore', 'setNoMore')
+          }
+        }, 2000)
+      }
+    };
+    onLoad() {
+      this.$invoke('loadmore', 'show')
+    }
+  }
+</script>

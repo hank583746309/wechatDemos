@@ -1,0 +1,2 @@
+@import "./../../components/actionsheet.wxss";
+.green{color:green}.red{color:red}.orange{color:orange}.yellow{color:yellow}.blue{color:blue}.purple{color:purple}

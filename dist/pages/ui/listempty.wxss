@@ -1,0 +1,2 @@
+@import "./../../components/emptyview.wxss";
+page{height:100%;width:100%}.hoo-empty_body{transform:translate(0, 80%)}

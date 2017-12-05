@@ -1,0 +1,25 @@
+
+  <block  wx:if="{{list.length > 0}}">
+    <text>数据列表(2秒后数据清空)</text>
+  </block>
+  <block  wx:else>
+    
+  <view class="hoo-empty_container">
+    <block  wx:if="{{$emptyview$inited}}">
+      <view class="hoo-empty_body">
+        <image src="{{$emptyview$emptyIcon}}"/>
+        <text>{{$emptyview$emptyText}}</text>
+        <block wx:if="{{$emptyview$showButton}}">
+          <button class="{{$emptyview$btnCls}}" hover-class="{{$emptyview$btnHoverCls}}" bindtap="$emptyview$onBtnClick">{{$emptyview$buttonText}}</button>
+        </block>
+      </view>
+    </block>
+    <block  wx:else>
+      <view class="hoo-empty_body">
+        <image src="{{$emptyview$emptyIcon}}"/>
+        <text>{{$emptyview$emptyText}}</text>
+      </view>
+    </block>
+  </view>
+
+  </block>

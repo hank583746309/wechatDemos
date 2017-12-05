@@ -1,0 +1,103 @@
+<style type="less">
+  .hoo-actionsheet_title{
+    position: relative;
+    height: 65px;
+    padding: 0 20px;
+    line-height: 1.4;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    text-align: center;
+    font-size: 28rpx;
+    color: #888;
+    background: #FCFCFD;
+  }
+  .hoo-actionsheet_item__content{
+
+  }
+  .hoo-actionsheet_item__description{
+
+  }
+  .hoo-actionsheet_cancel{
+
+  }
+</style>
+<template>
+  <!-- 条件包裹保证第一次渲染不显示 -->
+  <repeat wx:if="{{actionSheetItems.length > 0}}">
+    <action-sheet hidden="{{actionSheetHidden}}" @change="listenerActionSheet" >
+      <repeat wx:if="{{title}}">
+        <text class="hoo-actionsheet_title {{titleCls}}">{{title}}</text>
+      </repeat>
+      <repeat wx:for-items="{{actionSheetItems}}" wx:key="index">
+        <action-sheet-item @tap="listenerItemClick({{index}})">
+          <text class="hoo-actionsheet_item__content {{item.cls || contentCls}}">{{item.content}}</text>
+          <repeat wx:if="{{item.description}}">
+            <text class="hoo-actionsheet_item__description {{item.desCls || descriptionCls}}">{{item.description}}</text>
+          </repeat>
+        </action-sheet-item>
+      </repeat>
+      <action-sheet-cancel class="hoo-actionsheet_cancel">取消</action-sheet-cancel>
+    </action-sheet>
+  </repeat>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  /**
+   * 根据原生action-sheet改进为ios ui
+   */
+  export default class Actionsheet extends wepy.page {
+    config = {
+
+    };
+    data = {
+      title: '',
+      titleCls: '',
+      contentCls: '',
+      descriptionCls: '',
+      actionSheetHidden: true,
+      actionSheetItems: [] // { content: '', description: ''}
+    };
+    methods = {
+      config: function (cfg) {
+        if (typeof cfg !== 'object') {
+          cfg = {}
+        }
+        var actionSheetItems = cfg.items || []
+        if (actionSheetItems.length === 0) { console.error('action-sheet中至少包含1项') }
+        this.title = typeof cfg.title !== 'undefined' ? cfg.title : null
+        this.actionSheetItems = actionSheetItems.map(item => {
+          if (typeof item !== 'object') {
+            item = { content: item }
+          }
+          return item
+        })
+      },
+      show: function () {
+        this.actionSheetHidden = false
+      },
+      hide: function () {
+        this.actionSheetHidden = true
+      },
+      toggle: function () {
+        this.actionSheetHidden = !this.actionSheetHidden
+      },
+      listenerActionSheet: function () {
+        this.actionSheetHidden = true
+      },
+      listenerItemClick: function (index) {
+        this.actionSheetHidden = true
+        this.$emit('onItemClickListener', this.actionSheetItems[index], index)
+      }
+    };
+  }
+</script>
